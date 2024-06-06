@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
-
+import 'package:webview_flutter/webview_flutter.dart';
 void main() {
   runApp(const WebViewPlusExample());
 }
@@ -26,11 +24,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late WebViewControllerPlus _controler;
+  late WebViewController _controler;
 
   @override
   void initState() {
-    _controler = WebViewControllerPlus()
+    _controler = WebViewController()
     ..platform.setOnPlatformPermissionRequest((onPermissionRequest){
       _requestCameraPermission(onPermissionRequest);
     })
@@ -73,8 +71,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void dispose() {
-    _controler.server.close();
     super.dispose();
+
   }
 
   Future<void> _requestCameraPermission(PlatformWebViewPermissionRequest? onPermissionRequest) async {
