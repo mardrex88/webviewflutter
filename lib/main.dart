@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    _controler = WebViewController()
+   /* _controler = WebViewController()
     ..platform.setOnPlatformPermissionRequest((onPermissionRequest){
       _requestCameraPermission(onPermissionRequest);
     })
@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
           onPageFinished: (url) {
           },
         ),
-      );
+      ); */
     super.initState();
   }
 
@@ -58,9 +58,11 @@ class _MainPageState extends State<MainPage> {
               style: const TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(
             height: _height,
-            child: WebViewWidget(
-              controller: _controler,
-            ),
+            child:
+           // WebViewWidget(controller: _controler,),
+            WebView(
+              initialUrl: 'https://webcamtests.com',
+            )
           ),
           const Text("End of WebviewPlus",
               style: TextStyle(fontWeight: FontWeight.bold)),
@@ -75,19 +77,21 @@ class _MainPageState extends State<MainPage> {
 
   }
 
-  Future<void> _requestCameraPermission(PlatformWebViewPermissionRequest? onPermissionRequest) async {
+  Future<void> _requestCameraPermission(
+     // PlatformWebViewPermissionRequest? onPermissionRequest
+      ) async {
     PermissionStatus status = await Permission.camera.status;
     if (status.isGranted) {
       // Permiso ya concedido
       print('Permiso de cámara ya estaba concedido concedido');
-      onPermissionRequest!.grant();
+    //  onPermissionRequest!.grant();
     } else if (status.isDenied || status.isPermanentlyDenied) {
       // Solicita el permiso
       status = await Permission.camera.request();
       if (status.isGranted) {
         // Permiso concedido
         print('Permiso de cámara concedido');
-        onPermissionRequest!.grant();
+     //   onPermissionRequest!.grant();
       } else {
         // Permiso denegado permanentemente, redirige a la configuración
       //  GoRouter.of(context).pushReplacement('/go-to-config',extra: GoToConfigPage());
